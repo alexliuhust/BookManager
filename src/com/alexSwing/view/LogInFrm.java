@@ -135,6 +135,7 @@ public class LogInFrm extends JFrame {
 					.addContainerGap(71, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+		this.setLocationRelativeTo(null);
 	}
 
 	/**
@@ -159,6 +160,8 @@ public class LogInFrm extends JFrame {
 			User currentUser = userDao.login(con, user);
 			if (currentUser != null) {
 				JOptionPane.showMessageDialog(null, "Logged You In!");
+				dispose();
+				new MainFrm().setVisible(true);
 			}else {
 				JOptionPane.showMessageDialog(null, "Incorrect username or password!");
 			}
