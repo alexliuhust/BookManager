@@ -7,12 +7,10 @@ package com.alexSwing.model;
  */
 public class User {
 
-	public int id;
-	public String userName;
-	public String password;
-	public int getId() {
-		return id;
-	}
+	private int id;
+	private String userName;
+	private String password;
+	
 	public User() {
 		super();
 	}
@@ -20,6 +18,9 @@ public class User {
 		super();
 		this.userName = userName;
 		this.password = password;
+	}
+	public int getId() {
+		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
