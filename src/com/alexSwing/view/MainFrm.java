@@ -63,6 +63,13 @@ public class MainFrm extends JFrame {
 		mnNewMenu_2.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Maintain");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BookTypeManageInterFrm bookTypeManageInterFrm = new BookTypeManageInterFrm();
+				bookTypeManageInterFrm.setVisible(true);
+				table.add(bookTypeManageInterFrm);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_2);
 		
 		JMenu mnNewMenu_3 = new JMenu("Book Management");

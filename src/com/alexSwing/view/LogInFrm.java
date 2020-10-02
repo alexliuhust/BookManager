@@ -167,6 +167,12 @@ public class LogInFrm extends JFrame {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.closeCon(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

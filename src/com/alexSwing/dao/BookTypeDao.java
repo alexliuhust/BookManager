@@ -2,8 +2,10 @@ package com.alexSwing.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.alexSwing.model.BookType;
+import com.alexSwing.util.StringUtil;
 
 /**
  * Book Type DAO
@@ -26,4 +28,33 @@ public class BookTypeDao {
 		pstmt.setString(2, bookType.getBookTypeDesc());
 		return pstmt.executeUpdate();
 	}
+	
+	/**
+	 * Search Book Types
+	 * @param con
+	 * @param bookType
+	 * @return
+	 * @throws Exception
+	 */
+	public ResultSet list(Connection con, BookType bookType) throws Exception{
+		StringBuilder sb = new StringBuilder("select * from t_bookType");
+		if (StringUtil.isNotEmpty(bookType.getBookTypeName())) {
+			sb.append(" and bookTypeName like '%" + bookType.getBookTypeName() + "%'");
+		}
+		PreparedStatement pstmt = con.prepareStatement(sb.toString().replaceFirst("and", "where"));
+		return pstmt.executeQuery();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
