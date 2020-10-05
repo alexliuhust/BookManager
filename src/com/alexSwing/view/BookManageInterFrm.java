@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -32,6 +33,7 @@ import com.alexSwing.dao.BookTypeDao;
 import com.alexSwing.model.Book;
 import com.alexSwing.model.BookType;
 import com.alexSwing.util.DbUtil;
+import com.alexSwing.util.StringUtil;
 
 public class BookManageInterFrm extends JInternalFrame {
 	private JTable bookTable;
@@ -166,6 +168,11 @@ public class BookManageInterFrm extends JInternalFrame {
 		bookDescTxt = new JTextArea();
 		
 		JButton btnNewButton_1 = new JButton("EDIT");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bookUpdateActionPerformed(e);
+			}
+		});
 		btnNewButton_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		
 		JButton btnNewButton_2 = new JButton("DELETE");
@@ -333,6 +340,81 @@ public class BookManageInterFrm extends JInternalFrame {
 		this.fillTable(new Book());
 		
 
+	}
+
+	/**
+	 * Book Update Event Process
+	 * @param event
+	 */
+	private void bookUpdateActionPerformed(ActionEvent event) {
+		String id = this.idTxt.getText();
+		if(StringUtil.isEmpty(id)) {
+			JOptionPane.showMessageDialog(null, "Please select a record!");
+			return;
+		}
+		
+		String bookName = this.bookNameTxt.getText();
+		String author =   this.authorTxt.getText();
+		String price =    this.priceTxt.getText();
+		String bookDesc = this.bookDescTxt.getText();
+		if (StringUtil.isEmpty(bookName)) {
+			JOptionPane.showMessageDialog(null, "Book Name Cannot Be Empty!");
+			return;
+		} else if (StringUtil.isEmpty(author)) {
+			JOptionPane.showMessageDialog(null, "Author Cannot Be Empty!");
+			return;
+		} else if (StringUtil.isEmpty(price)) {
+			JOptionPane.showMessageDialog(null, "Price Cannot Be Empty!");
+			return;
+		} else if (StringUtil.isEmpty(bookDesc)) {
+			JOptionPane.showMessageDialog(null, "Book Description Cannot Be Empty!");
+			return;
+		}
+		
+		String sex = this.maleJrb.isSelected() ? "Male" : "Female";
+		BookType bookType = (BookType) this.bookTypeNameJcb.getSelectedItem();
+		Book book = new Book(Integer.parseInt(id), bookName, author, sex, Float.parseFloat(price), bookType.getId(), bookDesc);
+		
+		Connection con = null;
+		try {
+			con = dbUtil.getCon();
+			int num = bookDao.update(con, book);
+			if (num == 1) {
+				JOptionPane.showMessageDialog(null, "Successfully Updated One Book!");
+				resetValue();
+				this.fillTable(new Book());
+			} else {
+				JOptionPane.showMessageDialog(null, "Failed to Update");
+			}
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Fail to Update");
+		} finally {
+			try {
+				dbUtil.closeCon(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	/**
+	 * Reset the table
+	 */
+	private void resetValue() {
+		this.idTxt.setText("");
+		this.bookNameTxt.setText("");
+		this.authorTxt.setText("");
+		this.priceTxt.setText("");
+		this.bookDescTxt.setText("");
+		this.maleJrb.setSelected(true);
+		
+		if (this.bookTypeNameJcb.getItemCount() > 0) {
+			this.bookTypeNameJcb.setSelectedIndex(0);
+		}
 	}
 
 	/**
