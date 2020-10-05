@@ -96,4 +96,29 @@ public class BookDao {
 		return pstmt.executeUpdate();
 		
 	}
+	
+	/**
+	 * Determine whether there are books under the selected book type
+	 * @param con
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean bookExistByBookType(Connection con, String bookTypeId) throws Exception {
+		String sql = "select * from t_book where bookTypeId = ?";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, bookTypeId);
+		ResultSet rs = pstmt.executeQuery();
+		return rs.next();
+	}
 }
+
+
+
+
+
+
+
+
+
+

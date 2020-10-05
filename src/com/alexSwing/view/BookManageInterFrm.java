@@ -176,6 +176,11 @@ public class BookManageInterFrm extends JInternalFrame {
 		btnNewButton_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		
 		JButton btnNewButton_2 = new JButton("DELETE");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bookDeleteActionPerformed(e);
+			}
+		});
 		btnNewButton_2.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -343,6 +348,41 @@ public class BookManageInterFrm extends JInternalFrame {
 	}
 
 	/**
+	 * Book Delete Event Process
+	 * @param event
+	 */
+	private void bookDeleteActionPerformed(ActionEvent event) {
+		String id = idTxt.getText();
+		if (StringUtil.isEmpty(id)) {
+			JOptionPane.showMessageDialog(null, "Please select a record!");
+			return;
+		}
+		int n = JOptionPane.showConfirmDialog(null, "Are you sure to delete this record?");
+		if (n == 0) {
+			Connection con = null;
+			try {
+				con = dbUtil.getCon();
+				int deleteNum = bookDao.delete(con, id);
+				if (deleteNum == 1) {
+					JOptionPane.showMessageDialog(null, "Successfully Deleted!");
+					this.resetValue();
+					this.fillTable(new Book());
+				} else JOptionPane.showMessageDialog(null, "Fail to Delete");
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Fail to Delete");
+			} finally {
+				try {
+					dbUtil.closeCon(con);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/**
 	 * Book Update Event Process
 	 * @param event
 	 */
@@ -453,7 +493,7 @@ public class BookManageInterFrm extends JInternalFrame {
 		
 		Book book = new Book(bookName, author, bookType.getId());
 		this.fillTable(book);
-		
+		this.resetValue();
 	}
 
 	/**

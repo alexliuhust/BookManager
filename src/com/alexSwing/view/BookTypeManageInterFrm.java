@@ -1,44 +1,43 @@
 package com.alexSwing.view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Vector;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.alexSwing.dao.BookDao;
 import com.alexSwing.dao.BookTypeDao;
 import com.alexSwing.model.BookType;
 import com.alexSwing.util.DbUtil;
 import com.alexSwing.util.StringUtil;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
-import javax.swing.JTextArea;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 public class BookTypeManageInterFrm extends JInternalFrame {
 	private JTable bookTypeTable;
 
 	private DbUtil dbUtil = new DbUtil();
+	private BookDao bookDao = new BookDao();
 	private BookTypeDao bookTypeDao = new BookTypeDao();
 	private JTextField s_bookTypeNameTxt;
 	private JTextField idTxt;
@@ -227,6 +226,10 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 
 	}
 
+	/**
+	 * Book Type Delete Event Process
+	 * @param event
+	 */
 	private void bookTypeDeleteActionPerformed(ActionEvent event) {
 		String id = idTxt.getText();
 		if (StringUtil.isEmpty(id)) {
@@ -238,6 +241,10 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 			Connection con = null;
 			try {
 				con = dbUtil.getCon();
+				if (bookDao.bookExistByBookType(con, id)) {
+					JOptionPane.showMessageDialog(null, "Connot delete this type. There are books under this type.");
+					return;
+				}
 				int deleteNum = bookTypeDao.delete(con, id);
 				if (deleteNum == 1) {
 					JOptionPane.showMessageDialog(null, "Successfully Deleted!");
