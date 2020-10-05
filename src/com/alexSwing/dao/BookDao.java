@@ -2,8 +2,10 @@ package com.alexSwing.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.alexSwing.model.Book;
+import com.alexSwing.util.StringUtil;
 
 /**
  * Book Dao Class
@@ -12,6 +14,13 @@ import com.alexSwing.model.Book;
  */
 public class BookDao {
 
+	/**
+	 * Add a book
+	 * @param con
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
 	public int add(Connection con, Book book) throws Exception{
 		String sql = "insert into t_book values(null, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = con.prepareStatement(sql);
@@ -23,4 +32,43 @@ public class BookDao {
 		pstmt.setString(6, book.getBookDesc());
 		return pstmt.executeUpdate();
 	}
+	
+	/**
+	 * Book Search
+	 * @param con
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public ResultSet list(Connection con, Book book) throws Exception{
+		StringBuffer sb = new StringBuffer("select * from t_book b, t_bookType bt where b.bookTypeId = bt.id");
+		if (StringUtil.isNotEmpty(book.getBookName())) {
+			sb.append(" and b.bookName like '%" + book.getBookName() + "%'");
+		}
+		if (StringUtil.isNotEmpty(book.getAuthor())) {
+			sb.append(" and b.author like '%" + book.getAuthor() + "%'");
+		}
+		if (book.getBookTypeId() != null && book.getBookTypeId() != -1) {
+			sb.append(" and b.bookTypeId = " + book.getBookTypeId());
+		}
+		// PreparedStatement pstmt = con.prepareStatement(sb.toString().replaceFirst("and", "where"));
+		PreparedStatement pstmt = con.prepareStatement(sb.toString());
+		return pstmt.executeQuery();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

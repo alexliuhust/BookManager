@@ -37,7 +37,7 @@ public class BookAddInterFrm extends JInternalFrame {
 	private JRadioButton maleJrb;
 	private JRadioButton femaleJrb;
 
-	private DbUtil dbutil = new DbUtil();
+	private DbUtil dbUtil = new DbUtil();
 	private BookTypeDao bookTypeDao = new BookTypeDao();
 	private BookDao bookDao = new BookDao();
 
@@ -235,7 +235,7 @@ public class BookAddInterFrm extends JInternalFrame {
 
 		Connection con = null;
 		try {
-			con = dbutil.getCon();
+			con = dbUtil.getCon();
 			int num = bookDao.add(con, book);
 			if (num == 1) {
 				JOptionPane.showMessageDialog(null, "Successfully Added One Book!");
@@ -249,7 +249,7 @@ public class BookAddInterFrm extends JInternalFrame {
 			JOptionPane.showMessageDialog(null, "Failed to Add");
 		} finally {
 			try {
-				dbutil.closeCon(con);
+				dbUtil.closeCon(con);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -278,7 +278,7 @@ public class BookAddInterFrm extends JInternalFrame {
 		Connection con = null;
 		BookType bookType = null;
 		try {
-			con = dbutil.getCon();
+			con = dbUtil.getCon();
 			ResultSet rs = bookTypeDao.list(con, new BookType());
 			while (rs.next()) {
 				bookType = new BookType();
@@ -294,7 +294,7 @@ public class BookAddInterFrm extends JInternalFrame {
 			e.printStackTrace();
 		} finally {
 			try {
-				dbutil.closeCon(con);
+				dbUtil.closeCon(con);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

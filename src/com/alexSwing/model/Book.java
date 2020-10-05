@@ -22,6 +22,13 @@ public class Book {
 		super();
 	}
 	
+	public Book(String bookName, String author, Integer bookTypeId) {
+		super();
+		this.bookName = bookName;
+		this.author = author;
+		this.bookTypeId = bookTypeId;
+	}
+	
 	public Book(String bookName, String author, String sex, Float price, Integer bookTypeId, String bookDesc) {
 		super();
 		this.bookName = bookName;
@@ -31,6 +38,8 @@ public class Book {
 		this.bookTypeId = bookTypeId;
 		this.bookDesc = bookDesc;
 	}
+	
+	
 	
 	public int getId() {
 		return id;
