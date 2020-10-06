@@ -66,7 +66,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 	public BookTypeManageInterFrm() {
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("Book Type Management");
+		setTitle("Category Management");
 		setBounds(100, 100, 605, 575);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -242,7 +242,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 			try {
 				con = dbUtil.getCon();
 				if (bookDao.bookExistByBookType(con, id)) {
-					JOptionPane.showMessageDialog(null, "Connot delete this type. There are books under this type.");
+					JOptionPane.showMessageDialog(null, "Cannot delete this category./nThere are books under this type.");
 					return;
 				}
 				int deleteNum = bookTypeDao.delete(con, id);
@@ -250,11 +250,11 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 					JOptionPane.showMessageDialog(null, "Successfully Deleted!");
 					this.resetValue();
 					this.fillTable(new BookType());
-				} else JOptionPane.showMessageDialog(null, "Fail to Delete");
+				} else JOptionPane.showMessageDialog(null, "Fail to delete...");
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Fail to Delete");
+				JOptionPane.showMessageDialog(null, "Fail to delete...");
 			} finally {
 				try {
 					dbUtil.closeCon(con);
@@ -278,7 +278,7 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 			return;
 		}
 		if (StringUtil.isEmpty(bookTypeName)) {
-			JOptionPane.showMessageDialog(null, "Book Type Name cannot be empty!");
+			JOptionPane.showMessageDialog(null, "Category Name cannot be empty!");
 			return;
 		}
 		
@@ -291,11 +291,11 @@ public class BookTypeManageInterFrm extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, "Successfully Updated!");
 				this.resetValue();
 				this.fillTable(bookType);
-			} else JOptionPane.showMessageDialog(null, "Fail to Update");
+			} else JOptionPane.showMessageDialog(null, "Fail to update...");
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Fail to Update");
+			JOptionPane.showMessageDialog(null, "Fail to update...");
 		} finally {
 			try {
 				dbUtil.closeCon(con);

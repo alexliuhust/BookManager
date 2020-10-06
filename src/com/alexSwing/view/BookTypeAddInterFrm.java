@@ -52,7 +52,7 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setRootPaneCheckingEnabled(false);
-		setTitle("Add Book Type");
+		setTitle("Add Category");
 		setBounds(100, 100, 450, 300);
 
 		JLabel lblNewLabel = new JLabel("Name");
@@ -123,7 +123,7 @@ public class BookTypeAddInterFrm extends JInternalFrame {
 		String bookTypeName = this.bookTypeNameTxt.getText();
 		String bookTypeDesc = this.bookTypeDescTxt.getText();
 		if (StringUtil.isEmpty(bookTypeName)) {
-			JOptionPane.showMessageDialog(null, "Book Type Name Cannot Be Empty!");
+			JOptionPane.showMessageDialog(null, "Category Name Cannot Be Empty!");
 		}
 		BookType bookType = new BookType(bookTypeName, bookTypeDesc);
 		Connection con = null;

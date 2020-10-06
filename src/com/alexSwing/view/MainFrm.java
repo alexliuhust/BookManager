@@ -49,7 +49,7 @@ public class MainFrm extends JFrame {
 		JMenu mnNewMenu = new JMenu("Main Menu");
 		menuBar.add(mnNewMenu);
 		
-		JMenu mnNewMenu_2 = new JMenu("Category Management");
+		JMenu mnNewMenu_2 = new JMenu("Categories");
 		mnNewMenu.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Add");
@@ -62,7 +62,7 @@ public class MainFrm extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_1);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Maintain");
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Manage");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BookTypeManageInterFrm bookTypeManageInterFrm = new BookTypeManageInterFrm();
@@ -72,7 +72,7 @@ public class MainFrm extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_2);
 		
-		JMenu mnNewMenu_3 = new JMenu("Book Management");
+		JMenu mnNewMenu_3 = new JMenu("Books");
 		mnNewMenu.add(mnNewMenu_3);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Add");
@@ -85,7 +85,7 @@ public class MainFrm extends JFrame {
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_3);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Maintain");
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Manage");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BookManageInterFrm bookManageInterFrm = new BookManageInterFrm();

@@ -367,11 +367,11 @@ public class BookManageInterFrm extends JInternalFrame {
 					JOptionPane.showMessageDialog(null, "Successfully Deleted!");
 					this.resetValue();
 					this.fillTable(new Book());
-				} else JOptionPane.showMessageDialog(null, "Fail to Delete");
+				} else JOptionPane.showMessageDialog(null, "Fail to delete...");
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Fail to Delete");
+				JOptionPane.showMessageDialog(null, "Fail to delete...");
 			} finally {
 				try {
 					dbUtil.closeCon(con);
@@ -420,17 +420,17 @@ public class BookManageInterFrm extends JInternalFrame {
 			con = dbUtil.getCon();
 			int num = bookDao.update(con, book);
 			if (num == 1) {
-				JOptionPane.showMessageDialog(null, "Successfully Updated One Book!");
+				JOptionPane.showMessageDialog(null, "Successfully Updated!");
 				resetValue();
 				this.fillTable(new Book());
 			} else {
-				JOptionPane.showMessageDialog(null, "Failed to Update");
+				JOptionPane.showMessageDialog(null, "Failed to update...");
 			}
 			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Fail to Update");
+			JOptionPane.showMessageDialog(null, "Fail to update...");
 		} finally {
 			try {
 				dbUtil.closeCon(con);

@@ -238,15 +238,15 @@ public class BookAddInterFrm extends JInternalFrame {
 			con = dbUtil.getCon();
 			int num = bookDao.add(con, book);
 			if (num == 1) {
-				JOptionPane.showMessageDialog(null, "Successfully Added One Book!");
+				JOptionPane.showMessageDialog(null, "Successfully Added!");
 				resetValue();
 			} else {
-				JOptionPane.showMessageDialog(null, "Failed to Add");
+				JOptionPane.showMessageDialog(null, "Failed to add...");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Failed to Add");
+			JOptionPane.showMessageDialog(null, "Failed to add...");
 		} finally {
 			try {
 				dbUtil.closeCon(con);
